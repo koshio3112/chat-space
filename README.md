@@ -1,4 +1,4 @@
-message　テーブル
+messageテーブル
 text|text|
 image|string|
 group_id|integer|null:false,foreign_key: true|
