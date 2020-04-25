@@ -2,19 +2,20 @@
   .main-header
     .main-header__left-box
       %h2.main-header__left-box__current-group
-        test
+        = @group.name
       %ul.main-header__left-box__member-list
-        member
+        - @group.users.each do |user|
+          = user.name
         %li.main-header__left-box__member-list__member
-    = link_to '#', class:"main-header__edit-btn" do
+    = link_to edit_group_path(@group), class:"main-header__edit-btn" do
       edit
   .messages
-    .message
+    = render @messages
   .form
-    %form.new_message
+    = form_for [@group, @message] do |f|
       .input-box
-        %input{type: "text", class: "input-box__text", placeholder: "type a message"}
-        %label{type: "file", class: "input-box__image"}
-          = icon('fas', 'image')
-          %input{type: "file", class: "input-box__image__file"}
-      %input{type: "submit", class: "submit-btn"}
+        = f.text_field :content, class: "input-box__text" , placeholder: 'type a message'
+        = f.label :image, class: 'input-box__image' do
+          = icon('fas', 'image', class: 'icon')
+          = f.file_field :image, class: 'input-box__image__file'
+      = f.submit 'Send', class: 'submit-btn'
